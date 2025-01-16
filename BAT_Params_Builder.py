@@ -1,6 +1,6 @@
 
 """
-Only be used for Med-associates Davis Rig
+Use for both Med-associates Davis Rig and KatzBAT rig
 Hard code IPImin and IPImax to 10000 and 30000, respectively
 Hard code Version=5.30 || not sure if this will impact the running of rig program
 No-retries
@@ -11,6 +11,7 @@ log
 import numpy as np
 import os, platform
 import easygui
+from util_tools import make_dat_folder
 
 
 def build_bottle_sequence(bottle_positions, num_blocks = None, block = False):
@@ -134,10 +135,15 @@ NumRetries = int(params[3])
 SessionTimeLimit = int(params[4]) * 1000 * 60
 MaxReTries = int(params[5])
 
+if "Windows" in platform.system():
+    param_path = "C:\\ProgramData\\MED Associates\\Davis Rig\\Parameters\\"
+if "Linux" in platform.system():
+    param_path = os.path.join(os.getcwd(), "Parameters")
 
-param_path = "C:\\ProgramData\\MED Associates\\Davis Rig\\Parameters\\"
-f = open('{}{}.pro'.format(param_path, params_file_name[0]), 'w')
-# f = open(file_path, 'w')
+make_dat_folder(os.getcwd(), "Parameters")
+
+f = open(os.path.join(param_path, params_file_name[0]), "w")
+# f = open('{}{}.pro'.format(param_path, params_file_name[0]), 'w')
 print("[Trial Parameters]", file=f)
 print("NumberOfTubes={}".format(len(bottle_positions)), file=f)
 print("Solutions={}".format(solutions), file=f)
