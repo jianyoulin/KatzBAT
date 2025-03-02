@@ -73,7 +73,7 @@ else:
     print('You are good to go')
 
 try:
-    subprocess.run(["python", "katz_BAT.py"]) #, check=True)
+    subprocess.run(["python", "katz_BAT_beambk.py"]) #, check=True)
 #     messagebox.showinfo("Success", "Script executed successfully.")
 except Exception as e:
     messagebox.showerror("Error", f"Failed to execute script: {e}")
